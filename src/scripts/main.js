@@ -10,8 +10,8 @@ function createNotification(type, message) {
 }
 
 const firstPromise = new Promise((resolve, reject) => {
-  const onClick = (e) => {
-    if (e.button === 0) {
+  const onClick = (event) => {
+    if (event.button === 0) {
       resolve('First promise was resolved');
       clearTimeout(timer);
       document.removeEventListener('mousedown', onClick);
@@ -21,15 +21,15 @@ const firstPromise = new Promise((resolve, reject) => {
   document.addEventListener('mousedown', onClick);
 
   const timer = setTimeout(() => {
-    reject(new Error('First promise was rejected'));
+    // eslint-disable-next-line prefer-promise-reject-errors
+    reject('First promise was rejected');
     document.removeEventListener('mousedown', onClick);
   }, 3000);
 });
 
 firstPromise
-  .then((msg) => createNotification('success', msg))
-  .catch((msg) => createNotification('error', msg));
-
+  .then(msg => createNotification('success', msg))
+  .catch(msg => createNotification('error', msg));
 const secondPromise = new Promise((resolve) => {
   const onClick = (e) => {
     if (e.button === 0 || e.button === 2) {
