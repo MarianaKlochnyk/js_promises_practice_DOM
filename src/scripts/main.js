@@ -10,8 +10,8 @@ function createNotification(type, message) {
 }
 
 const firstPromise = new Promise((resolve, reject) => {
-  const onClick = (event) => {
-    if (event.button === 0) {
+  const onClick = (e) => {
+    if (e.button === 0) {
       resolve('First promise was resolved');
       clearTimeout(timer);
       document.removeEventListener('mousedown', onClick);
@@ -28,8 +28,9 @@ const firstPromise = new Promise((resolve, reject) => {
 });
 
 firstPromise
-  .then(msg => createNotification('success', msg))
-  .catch(msg => createNotification('error', msg));
+  .then((msg) => createNotification('success', msg))
+  .catch((msg) => createNotification('error', msg));
+
 const secondPromise = new Promise((resolve) => {
   const onClick = (e) => {
     if (e.button === 0 || e.button === 2) {
